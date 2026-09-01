@@ -29,6 +29,7 @@ public class StockfishEngine implements AutoCloseable {
         this(executablePath, 15);
     }
 
+    @org.springframework.beans.factory.annotation.Autowired
     public StockfishEngine(
             @Value("${stockfish.path:stockfish}") String executablePath,
             @Value("${stockfish.default-depth:15}") int defaultDepth) {
