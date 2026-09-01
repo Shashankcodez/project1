@@ -126,15 +126,12 @@ public class StockfishEngine implements AutoCloseable {
     private void waitForResponse(String expected, long timeoutMs) throws IOException {
         long startTime = System.currentTimeMillis();
         String line;
-        while ((System.currentTimeMillis() - startTime) < timeoutMs) {
-            if (reader.ready() || isAlive()) {
-                line = reader.readLine();
-                if (line == null) {
-                    throw new StockfishException("Stockfish process closed stream while waiting for: " + expected);
-                }
-                if (line.trim().equals(expected) || line.startsWith(expected)) {
-                    return;
-                }
+        while ((line = reader.readLine()) != null) {
+            if (line.trim().equals(expected) || line.startsWith(expected)) {
+                return;
+            }
+            if ((System.currentTimeMillis() - startTime) > timeoutMs) {
+                break;
             }
         }
         throw new StockfishException("Timed out waiting for Stockfish response: " + expected);
