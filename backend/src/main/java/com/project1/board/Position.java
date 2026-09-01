@@ -49,6 +49,17 @@ public final class Position {
     }
 
     /**
+     * Checks if the given row and column indices are within the 8x8 chessboard bounds.
+     *
+     * @param row row index
+     * @param col column index
+     * @return true if row and col are between 0 and 7 inclusive
+     */
+    public static boolean isValid(int row, int col) {
+        return row >= 0 && row <= 7 && col >= 0 && col <= 7;
+    }
+
+    /**
      * Factory method to create a Position from standard algebraic notation (e.g., "e4", "a1", "e8").
      *
      * @param notation 2-character square notation (case-insensitive file)
